@@ -10,8 +10,8 @@ import { DictatorApiService } from '../services/dictator-api.service';
 export class AddDictatorComponent implements OnInit {
 
   dictatorForm = this.fb.group({
-    firstName:['', [Validators.required], Validators.minLength(80)],
-    lastName:['', [Validators.required], Validators.minLength(80)],
+    firstName:['', [Validators.required], Validators.maxLength(5)],
+    lastName:['', [Validators.required], Validators.maxLength(80)],
     birth: [''],
     death: [''],
     description: ['',[Validators.required]]
