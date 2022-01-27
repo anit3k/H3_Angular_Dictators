@@ -1,5 +1,5 @@
 export interface IDictatorModel {
-    id: number;
+    id: string;
     firstName: string;
     lastName: string;
     birth: string;

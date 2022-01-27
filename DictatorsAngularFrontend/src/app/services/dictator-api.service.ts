@@ -8,7 +8,7 @@ import { IDictatorModel } from '../Models/dictatorModel';
 })
 export class DictatorApiService {
 
-  baseURl: string = "http://localhost:5000/api/dictator";
+  baseURl: string = "http://localhost:5000/api/dictator/";
 
   constructor(private http: HttpClient) { }
 
@@ -20,14 +20,8 @@ export class DictatorApiService {
     return this.http.post<IDictatorModel>(this.baseURl, dictator);
   }
 
-  deleteDictator(dictator: any): Observable<any> {
-    // const options = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json'
-    //   }),
-    //   body: { dictator
-    //   }
-    // }
-    return this.http.delete(this.baseURl, dictator);
+  deleteDictator(id: string): Observable<any> { 
+    let deleteUrl = this.baseURl+id; 
+    return this.http.delete(deleteUrl);
   }
 }

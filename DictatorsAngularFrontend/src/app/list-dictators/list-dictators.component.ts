@@ -13,6 +13,7 @@ export class ListDictatorsComponent implements OnInit, OnDestroy {
   sub!: Subscription;
   diactators: IDictatorModel[] = [];
   dataLoaded: boolean = false;  
+  deleteStatus: string = "";
 
   constructor(private dicSer: DictatorApiService) { }
 
@@ -21,16 +22,21 @@ export class ListDictatorsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.getAllDictators();
+  }
+
+  private getAllDictators() {
     this.sub = this.dicSer.getDictators().subscribe((list: IDictatorModel[]) => {
-      next: this.diactators = list;     
+      next: this.diactators = list;
       complete: if (list.length > 0) {
         this.dataLoaded = true;
       }
-    })
+    });
   }
 
-  deleteDictator(dictator: IDictatorModel) {
-    this.dicSer.deleteDictator(dictator)
-    .subscribe(dic => dictator);
+  deleteDictator(id: string) {
+    this.dicSer.deleteDictator(id)
+    .subscribe(() => {this.deleteStatus = "Dictator is deleted from history!"});
+    this.getAllDictators();
   }
 }
