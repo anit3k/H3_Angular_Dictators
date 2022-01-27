@@ -1,3 +1,19 @@
-<div class="bg-light">
-    <p>list-dictators works!</p>
+<div *ngFor="let dic of list">
+  <div class="card mb-3 text-center" style="max-width: 540px; margin: 20px;">
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        <img class="card-img-top" src="assets/images/dictator.jpg" class="card-img-top" style="margin: 10px;">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">{{dic.firstName}} {{dic.lastName}}</h5>
+          <p class="card-text ">{{dic.description}}</p>
+          <a  class="btn btn-sm btn-outline-danger">Delete Dictator</a>
+        </div>
+        <div class="card-footer text-muted fix-footer">
+          {{dic.birth}} - {{dic.death}}
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

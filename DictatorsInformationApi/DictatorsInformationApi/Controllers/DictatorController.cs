@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Amazon.CloudFront.Model;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace DictatorsInformationApi.Controllers
@@ -9,11 +11,16 @@ namespace DictatorsInformationApi.Controllers
     {
         private List<DictatorModel> dictators = new List<DictatorModel>();
 
+        public DictatorController()
+        {
+            dictators.Add(new DictatorModel("Steffen", "halberg", "1985-08-03" , "10-10-2090", "this is a test"));
+            dictators.Add(new DictatorModel("Mads", "Tinko", "1985-08-03", "10-10-2090", "this is a test"));
+        }
+
         [HttpGet]
         public ActionResult<IEnumerable<DictatorModel>> GetDictators()
         {
-            dictators.Add(new DictatorModel("Steffen", "yy", "1985-08-03" , "10-10-2090", "this is a test"));
-            return Ok( dictators);
+            return Ok(dictators);
         }
 
         [HttpPost]
