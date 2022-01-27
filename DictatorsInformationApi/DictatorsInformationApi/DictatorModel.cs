@@ -10,6 +10,7 @@ namespace DictatorsInformationApi
     public class DictatorModel
     {
         #region fields
+        private string _id;
         private string _firstName;
         private string _lastName;
         private string _birth;
@@ -21,10 +22,11 @@ namespace DictatorsInformationApi
 
         public DictatorModel()
         {
-
+            Id = Guid.NewGuid().ToString();
         }
         public DictatorModel(string firstName, string lastname, string birth, string death, string description)
         {
+            Id = Guid.NewGuid().ToString();
             FirstName = firstName;
             LastName = lastname;
             Birth = birth;
@@ -34,6 +36,13 @@ namespace DictatorsInformationApi
         #endregion
 
         #region Properties
+
+        public string Id
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
+
         [Required]
         [MaxLength(80)]
         public string FirstName

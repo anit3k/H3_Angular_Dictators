@@ -1,6 +1,4 @@
-import { HttpClientModule } from '@angular/common/http';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { DictatorApiService } from '../services/dictator-api.service';
 import { IDictatorModel } from '../Models/dictatorModel';
@@ -13,29 +11,26 @@ import { IDictatorModel } from '../Models/dictatorModel';
 export class ListDictatorsComponent implements OnInit, OnDestroy {
 
   sub!: Subscription;
+  diactators: IDictatorModel[] = [];
+  dataLoaded: boolean = false;  
 
-  list: IDictatorModel[] = [];
-  
-  dictatorForm = this.fb.group({
-    firstName:['', [Validators.required], Validators.minLength(80)],
-    lastName:['', [Validators.required], Validators.minLength(80)],
-    birth: [''],
-    death: [''],
-    description: ['',[Validators.required]]
-  })
-
-  constructor(private dicSer: DictatorApiService, private fb: FormBuilder) { }
+  constructor(private dicSer: DictatorApiService) { }
 
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }
 
-
-
   ngOnInit(): void {
     this.sub = this.dicSer.getDictators().subscribe((list: IDictatorModel[]) => {
-      next: this.list = list;      
+      next: this.diactators = list;     
+      complete: if (list.length > 0) {
+        this.dataLoaded = true;
+      }
     })
   }
 
+  deleteDictator(dictator: IDictatorModel) {
+    this.dicSer.deleteDictator(dictator)
+    .subscribe(dic => dictator);
+  }
 }

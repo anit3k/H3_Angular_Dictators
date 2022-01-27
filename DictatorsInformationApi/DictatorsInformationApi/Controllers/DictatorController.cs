@@ -9,12 +9,15 @@ namespace DictatorsInformationApi.Controllers
     [ApiController]
     public class DictatorController : Controller
     {
-        private List<DictatorModel> dictators = new List<DictatorModel>();
+        private static List<DictatorModel> dictators = new List<DictatorModel>();
 
         public DictatorController()
         {
-            dictators.Add(new DictatorModel("Steffen", "halberg", "1985-08-03" , "10-10-2090", "this is a test"));
-            dictators.Add(new DictatorModel("Mads", "Tinko", "1985-08-03", "10-10-2090", "this is a test"));
+            if (dictators.Count == 0)
+            {
+                dictators.Add(new DictatorModel("Steffen", "halberg", "1985-08-03", "10-10-2090", "this is a test"));
+                dictators.Add(new DictatorModel("Mads", "Tinko", "1985-08-03", "10-10-2090", "this is a test"));
+            }
         }
 
         [HttpGet]
@@ -25,11 +28,17 @@ namespace DictatorsInformationApi.Controllers
 
         [HttpPost]
         public ActionResult<DictatorModel> PostDictator(DictatorModel dictator)
-        {
-            var model = dictator;
-
+        {           
             dictators.Add(dictator);
-            return Ok( dictator);
+            return Ok(dictator);
+        }
+
+
+        [HttpDelete]
+        public ActionResult<DictatorModel> DelelteDictator(DictatorModel dictator)
+        {
+            dictators.Remove(dictators.Find(x => x.Id == dictator.Id));
+            return Ok("Delete OK");
         }
     }
 }

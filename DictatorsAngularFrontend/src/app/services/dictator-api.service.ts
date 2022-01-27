@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { IDictatorModel } from '../Models/dictatorModel';
 
@@ -18,5 +18,16 @@ export class DictatorApiService {
 
   postDictator(dictator: IDictatorModel): Observable<IDictatorModel> {
     return this.http.post<IDictatorModel>(this.baseURl, dictator);
+  }
+
+  deleteDictator(dictator: any): Observable<any> {
+    // const options = {
+    //   headers: new HttpHeaders({
+    //     'Content-Type': 'application/json'
+    //   }),
+    //   body: { dictator
+    //   }
+    // }
+    return this.http.delete(this.baseURl, dictator);
   }
 }

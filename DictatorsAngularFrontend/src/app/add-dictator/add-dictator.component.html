@@ -1,1 +1,23 @@
-<p>add-dictator works!</p>
+<form [formGroup]="dictatorForm" (submit)="submitDictator()">
+    <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" class="form-control" id="firstName" formControlName="firstName"/>
+    </div>
+    <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" class="form-control" id="lastName" formControlName="lastName">
+    </div>
+    <div class="form-group">
+        <label for="birth">Birth Year</label>
+        <input type="text" class="form-control" id="birth" formControlName="birth">
+    </div>
+    <div class="form-group">
+        <label for="death">Death Year</label>
+        <input type="text" class="form-control" id="death" formControlName="death">
+    </div>
+    <div class="form-group">
+        <label for="description">Description</label>
+        <textarea type="text" class="form-control" id="description" style="resize: none;" formControlName="description"></textarea> 
+    </div>
+    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Submit</button>
+</form>

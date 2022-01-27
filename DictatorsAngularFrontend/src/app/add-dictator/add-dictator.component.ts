@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { DictatorApiService } from '../services/dictator-api.service';
 
 @Component({
   selector: 'dic-add-dictator',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddDictatorComponent implements OnInit {
 
-  constructor() { }
+  dictatorForm = this.fb.group({
+    firstName:['', [Validators.required], Validators.minLength(80)],
+    lastName:['', [Validators.required], Validators.minLength(80)],
+    birth: [''],
+    death: [''],
+    description: ['',[Validators.required]]
+  })
+
+  constructor(private fb: FormBuilder, private dicSer: DictatorApiService) { }
 
   ngOnInit(): void {
+  }
+
+  submitDictator(){
+    this.dicSer.postDictator(this.dictatorForm.value)
+      .subscribe(dic => this.dictatorForm.value);
   }
 
 }
